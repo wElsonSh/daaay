@@ -29,7 +29,6 @@ export function CreateTaskContextProvider({ children }) {
         setStateDuoArr(prev => {
             const newState = [...prev]
             newState[index] = !newState[index]
-            console.log('Новое состояние!', newState);
             return newState
         })
     }
@@ -37,6 +36,7 @@ export function CreateTaskContextProvider({ children }) {
     const value = {
         countMonthDays,
         handleDuoClick,
+        stateDuoArr,
     }
 
     return (

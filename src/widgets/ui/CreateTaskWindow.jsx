@@ -6,8 +6,20 @@ export function CreateTaskWindow({ isOpen, setIsOpen }) {
     const newDate = new Date()
         , newMonth = newDate.getMonth()
 
-    const { countMonthDays } = useContext(CreateTaskContext)
+    const { countMonthDays, handleDuoClick, stateDuoArr } = useContext(CreateTaskContext)
 
+    const [indexDuoActive, setIndexDuoActive] = useState(null)
+
+    useEffect(() => {
+        stateDuoArr.forEach((item, index) => {
+            if (item && indexDuoActive == null) {
+                setIndexDuoActive(index)
+            }
+            if (!item && indexDuoActive == index) {
+                setIndexDuoActive(null)
+            }
+        })
+    }, [stateDuoArr])
 
     const mothsArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         , [monthArr, setMonthArr] = useState([])
@@ -35,6 +47,11 @@ export function CreateTaskWindow({ isOpen, setIsOpen }) {
         }
     }
 
+    const handleCloseCreateTaskWindow = () => {
+        setIsOpen(false)
+        console.log("hello world!");
+    }
+
     return (
         <div className={`w-full h-screen absolute left-0 top-0 bg-neutral-800/70 ${vsibleStyle} transition-all`}>
             <div className="w-full h-10/12 bg-[var(--task_red)] absolute bottom-0 rounded-t-4xl px-10 py-15 flex flex-col gap-10">
@@ -54,9 +71,9 @@ export function CreateTaskWindow({ isOpen, setIsOpen }) {
                                 {monthArr.length > 0 ? (
                                     monthArr.map((item, index) => (
                                         <button
-                                            onClick={() => console.log("Clicked:", item)}
+                                            onClick={() => handleDuoClick(index)}
                                             key={index}
-                                            className="w-24 h-10 flex items-center justify-center text-sm transition-all rounded-4xl bg-neutral-500 text-neutral-900 hover:bg-neutral-400 hover:text-neutral-100 outline-2 outline-offset-2 outline-transparent active:bg-neutral-700 cursor-pointer"
+                                            className={`w-24 h-10 flex items-center justify-center text-sm transition-all rounded-4xl outline-2 outline-offset-2 cursor-pointer ${stateDuoArr[index] ? 'bg-[var(--task_red-dark)] text-neutral-100 outline-neutral-100 hover:bg-[var(--task_red)]' : 'bg-neutral-500 text-neutral-900 outline-transparent hover:text-neutral-100 hover:bg-neutral-400 active:bg-neutral-700 '} ${indexDuoActive !== index && indexDuoActive !== null ? 'pointer-events-none' : 'pointer-events-auto'}`}
                                         >
                                             {item}
                                         </button>
@@ -69,7 +86,7 @@ export function CreateTaskWindow({ isOpen, setIsOpen }) {
                         </div>
                     </div>
 
-                    <button className="w-full h-20 mt-10 bg-neutral-900 rounded-3xl text-2xl font-medium hover:bg-neutral-800 transition-all cursor-pointer active:bg-neutral-950" onClick={() => { setIsOpen(false) }}>Create Task</button>
+                    <button className="w-full h-20 mt-10 bg-neutral-900 rounded-3xl text-2xl font-medium hover:bg-neutral-800 transition-all cursor-pointer active:bg-neutral-950" onClick={() => { handleCloseCreateTaskWindow() }}>Create Task</button>
                 </div>
             </div>
         </div >

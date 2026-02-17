@@ -17,7 +17,7 @@ export function Task() {
     return (
         <li onClick={() => { setIsActive(!isActive) }} className={`w-full transition-all ${heightStyle} bg-l- rounded-4xl p-5`}>
             <div className="w-full h-20 flex items-center justify-between">
-                <span className="text-4xl max-w-1/2 flex font-medium">Lorem ipsum dolor sit.</span>
+                <span className="text-3xl max-w-1/2 flex font-medium">Lorem ipsum dolor sit.</span>
                 <button className={`w-15 h-15 flex items-center justify-center rounded-full outline-2 outline-offset-2 outline-transparent transition-all cursor-pointer ${penStyle}`}><FaPencilAlt className="w-5 h-5" /></button>
             </div>
             <div className={`w-full text-base text-neutral-500 flex items-center  transition-all ${hiddenStyle}`}>
