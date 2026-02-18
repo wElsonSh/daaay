@@ -46,3 +46,27 @@ input::placeholder {
 textarea::placeholder {
   color: inherit;
 }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+  /* Длительность перехода */
+}
+
+/* .main_win {
+  animation: fade_in .3s ease-in;
+}
+
+.profile_win {
+  animation: fade_in .3s ease-in;
+}
+
+@keyframes fade_in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100%;
+  }
+} */

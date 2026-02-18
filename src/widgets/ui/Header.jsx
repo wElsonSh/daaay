@@ -1,4 +1,5 @@
 import { FaPlus } from "react-icons/fa";
+import { Link } from "react-router";
 
 export function Header({ setIsOpen }) {
     return (
@@ -8,7 +9,7 @@ export function Header({ setIsOpen }) {
                     <span className="w-9 h-9 rounded-full bg-black flex items-center justify-center"><FaPlus className="w-3 h-3 text-neutral-500" /></span>
                     Create New Task
                 </button>
-                <div className="w-11 h-11 bg-neutral-500 rounded-full outline-2 outline-offset-2 outline-neutral-400 cursor-pointer hover:outline-neutral-300 transition-all"></div>
+                <Link to="/profile" className="w-12 h-12 bg-neutral-500 rounded-full outline-2 outline-offset-2 outline-neutral-400 cursor-pointer hover:outline-neutral-300 transition-all" smooth={true} duration={500}></Link>
             </div>
             <div className="w-full h-fit flex items-center justify-between text-4xl">
                 Manage Your Task

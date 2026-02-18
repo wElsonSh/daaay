@@ -1,27 +1,32 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { FaPencilAlt, FaPlus } from "react-icons/fa";
 import { FaCalendar, FaClock } from "react-icons/fa6";
-export function Task() {
+import { CreateTaskContext } from "../../contexts/ui/CreateTaskContext";
+export function Task({ title, about, isOpen }) {
 
-    const [isActive, setIsActive] = useState(false)
+    const { handleClickTask } = useContext(CreateTaskContext)
 
-    const heightStyle = isActive ? 'h-90 text-neutral-100' : 'h-70 bg-[var(--task_green)] text-neutral-800'
-        , hiddenStyle = isActive ? 'opacity-100 visible h-20 pt-5' : 'opacity-0 invisible h-0'
-        , penStyle = isActive ? 'bg-neutral-500 text-neutral-900 pointer-events-none' : 'bg-neutral-900 text-neutral-50  hover:bg-neutral-800 hover:outline-neutral-900'
-        , iconStyle = isActive ? 'bg-neutral-500' : 'bg-[var(--task_green-dark)]'
-        , duoStyle = isActive ? 'text-neutral-50' : 'text-neutral-900'
-        , dopStyles = isActive ? 'bg-neutral-400' : 'bg-neutral-50'
-        , dopBtnStyles = isActive ? 'bg-neutral-800 text-neutral-100 pointer-events-none' : 'bg-[var(--task_green-dark)] hover:bg-[var(--task_green)]  text-neutral-700'
-        , hardStyles = isActive ? 'bg-neutral-800 text-neutral-100' : 'bg-orange-400 text-neutral-900'
+    const handleTaskClick = () => {
+        handleClickTask(title)
+    }
+
+    const heightStyle = isOpen ? 'h-90 text-neutral-100' : 'h-70 bg-[var(--task_green)] text-neutral-800'
+        , hiddenStyle = isOpen ? 'opacity-100 visible h-20 pt-5' : 'opacity-0 invisible h-0'
+        , penStyle = isOpen ? 'bg-neutral-500 text-neutral-900 pointer-events-none' : 'bg-neutral-900 text-neutral-50  hover:bg-neutral-800 hover:outline-neutral-900'
+        , iconStyle = isOpen ? 'bg-neutral-500' : 'bg-[var(--task_green-dark)]'
+        , duoStyle = isOpen ? 'text-neutral-50' : 'text-neutral-900'
+        , dopStyles = isOpen ? 'bg-neutral-400' : 'bg-neutral-50'
+        , dopBtnStyles = isOpen ? 'bg-neutral-800 text-neutral-100 pointer-events-none' : 'bg-[var(--task_green-dark)] hover:bg-[var(--task_green)]  text-neutral-700'
+        , hardStyles = isOpen ? 'bg-neutral-800 text-neutral-100' : 'bg-orange-400 text-neutral-900'
 
     return (
-        <li onClick={() => { setIsActive(!isActive) }} className={`w-full transition-all ${heightStyle} bg-l- rounded-4xl p-5`}>
+        <li onClick={() => { handleTaskClick() }} className={`w-full transition-all ${heightStyle} bg-l- rounded-4xl p-5`}>
             <div className="w-full h-20 flex items-center justify-between">
-                <span className="text-3xl max-w-1/2 flex font-medium">Lorem ipsum dolor sit.</span>
+                <span className="text-3xl max-w-1/2 flex font-medium">{title}</span>
                 <button className={`w-15 h-15 flex items-center justify-center rounded-full outline-2 outline-offset-2 outline-transparent transition-all cursor-pointer ${penStyle}`}><FaPencilAlt className="w-5 h-5" /></button>
             </div>
             <div className={`w-full text-base text-neutral-500 flex items-center  transition-all ${hiddenStyle}`}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem non voluptatem molestiae.
+                {about}
             </div>
             <div className="w-11/12 h-20 flex items-center mx-auto">
                 <div className="w-40 h-full flex items-center gap-2 text-neutral-900 text-lg">

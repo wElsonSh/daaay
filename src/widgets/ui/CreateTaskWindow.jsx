@@ -54,7 +54,7 @@ export function CreateTaskWindow({ isOpen, setIsOpen }) {
 
     return (
         <div className={`w-full h-screen absolute left-0 top-0 bg-neutral-800/70 ${vsibleStyle} transition-all`}>
-            <div className="w-full h-10/12 bg-[var(--task_red)] absolute bottom-0 rounded-t-4xl px-10 py-15 flex flex-col gap-10">
+            <div className="w-full h-auto bg-[var(--task_red)] absolute bottom-0 rounded-t-4xl px-10 py-15 flex flex-col gap-10">
                 <button className="absolute top-7 right-7 cursor-pointer w-10 h-10 flex items-center justify-center bg-neutral-900 rounded-full hover:bg-neutral-800 transition-all active:bg-neutral-950" onClick={() => { setIsOpen(false) }}><IoClose className="w-6 h-6 text-neutral-50" /></button>
                 <div className="text-4xl text-neutral-800 font-semibold">Hey, Create new task</div>
                 <div className="w-full h-fit flex flex-col gap-2">

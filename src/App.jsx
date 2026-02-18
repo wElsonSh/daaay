@@ -1,29 +1,20 @@
-import { useState } from "react";
+import { BrowserRouter, Route, Routes } from 'react-router';
 import { CreateTaskContextProvider } from "./contexts/ui/CreateTaskContext";
-import { CreateTaskWindow, Header, Task } from "./widgets";
+import { Main } from './widgets/ui/Main';
+import { Profile } from './widgets/ui/Profile';
 export function App() {
-
-  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <CreateTaskContextProvider>
-      <div className="w-full h-screen py-7 px-5 container mx-auto max-w-[768px]">
-        <div className="w-full h-full flex flex-col gap-5">
+      <BrowserRouter>
 
-          <Header setIsOpen={setIsOpen} />
-
-
-          <section className="w-full h-200 relative overflow-x-hidden overflow-y-auto">
-            <ul className="absolute w-full h-fit flex flex-col items-center gap-3 py-2">
-              <Task />
-              <Task />
-              <Task />
-              <Task />
-            </ul>
-          </section>
-          <CreateTaskWindow isOpen={isOpen} setIsOpen={setIsOpen} />
+        <div className="w-full h-screen py-7 px-5 container mx-auto max-w-[768px]">
+          <Routes>
+            <Route path='/' element={<Main />}></Route>
+            <Route path='/profile' element={<Profile />}></Route>
+          </Routes>
         </div>
-      </div>
+      </BrowserRouter>
     </CreateTaskContextProvider>
   );
 }
