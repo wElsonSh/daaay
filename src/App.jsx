@@ -8,7 +8,7 @@ export function App() {
     <CreateTaskContextProvider>
       <BrowserRouter>
 
-        <div className="w-full h-screen py-7 px-5 container mx-auto max-w-[768px]">
+        <div className="w-full h-screen container mx-auto max-w-[768px]">
           <Routes>
             <Route path='/' element={<Main />}></Route>
             <Route path='/profile' element={<Profile />}></Route>

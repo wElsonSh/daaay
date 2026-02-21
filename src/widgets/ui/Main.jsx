@@ -18,7 +18,7 @@ export function Main() {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <div data-aos="fade-right" className="w-full h-full flex flex-col gap-5 main_win transition-all">
+        <div data-aos="fade-right" className="py-7 px-5 w-full h-full flex flex-col gap-5 main_win transition-all">
 
             <Header setIsOpen={setIsOpen} />
 
