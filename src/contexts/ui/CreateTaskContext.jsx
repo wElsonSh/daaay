@@ -4,7 +4,15 @@ export const CreateTaskContext = createContext()
 
 export function CreateTaskContextProvider({ children }) {
 
-    const tasksArr = [['Task 1 akjdnkjasnd ', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem non voluptatem molestiae.'], ['Task 2', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem non voluptatem molestiae.'], ['Task 3', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem non voluptatem molestiae.'], ['Task 4', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem non voluptatem molestiae.'],]
+    const [tasksArr, setTasksArr] = useState(() => {
+        const getData = localStorage.getItem("tasks")
+        return getData ? JSON.parse(getData) : []
+    })
+
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasksArr))
+    }, [tasksArr])
+
 
     const [tasksStatesArr, setTasksStatesArr] = useState([])
         , [taskName, setTaskName] = useState(null)
@@ -41,6 +49,7 @@ export function CreateTaskContextProvider({ children }) {
     const countMonthDays = getCountInMonthDay(newYear, newMonth)
 
     const [stateDuoArr, setStateDuoArr] = useState([])
+        , [timeDuo, setTimeDuo] = useState(null)
 
     useEffect(() => {
         const newArray = [];
@@ -53,12 +62,24 @@ export function CreateTaskContextProvider({ children }) {
 
     }, [countMonthDays, newMonth])
 
-    const handleDuoClick = (index) => {
+    const handleDuoClick = (index, item) => {
         setStateDuoArr(prev => {
             const newState = [...prev]
             newState[index] = !newState[index]
             return newState
         })
+        setTimeDuo(item)
+    }
+
+    const handleCreateTask = (title, about, time) => {
+
+        const examination = tasksArr.some(el => JSON.stringify(el[0]) === JSON.stringify(title))
+        if (!examination) {
+            const newElem = [title, about, time]
+            setTasksArr(prev => [...prev, newElem])
+        } else {
+            alert('arr have this task')
+        }
     }
 
     const value = {
@@ -70,6 +91,8 @@ export function CreateTaskContextProvider({ children }) {
         tasksStatesArr,
         taskName,
         activeTaskIndex,
+        handleCreateTask,
+        timeDuo,
     }
 
     return (

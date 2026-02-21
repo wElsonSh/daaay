@@ -26,7 +26,7 @@ export function Main() {
             <section className="w-full h-200 relative overflow-x-hidden overflow-y-auto">
                 <ul className="absolute w-full h-fit flex flex-col items-center gap-3 py-2">
                     {tasksArr.map((item, index) => (
-                        <Task key={item} isOpen={activeTaskIndex === index ? true : false} title={tasksArr[index][0]} about={tasksArr[index][1]} />
+                        <Task key={item} isOpen={activeTaskIndex === index ? true : false} title={tasksArr[index][0]} about={tasksArr[index][1]} time={tasksArr[index][2]} />
                     ))}
                 </ul>
             </section>

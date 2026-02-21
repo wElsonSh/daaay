@@ -3,7 +3,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import { FaCalendar, FaClock } from "react-icons/fa6";
 import { CreateTaskContext } from "../../contexts/ui/CreateTaskContext";
 import { Teg } from "../../shared/ui/Teg";
-export function Task({ title, about, isOpen }) {
+export function Task({ title, about, isOpen, time }) {
 
     const { handleClickTask } = useContext(CreateTaskContext)
 
@@ -32,7 +32,7 @@ export function Task({ title, about, isOpen }) {
             <div className="w-11/12 h-20 flex items-center mx-auto">
                 <div className="w-40 h-full flex items-center gap-2 text-neutral-900 text-lg">
                     <span className={`w-12 h-12 flex items-center justify-center rounded-full ${iconStyle} transition-all`}><FaCalendar /></span>
-                    <span className={`${duoStyle} transition-all`}>16 Feb</span>
+                    <span className={`${duoStyle} transition-all`}>{time}</span>
                 </div>
                 <div className="w-40 h-full flex items-center gap-2 text-neutral-900 text-lg">
                     <span className={`w-12 h-12 flex items-center justify-center rounded-full ${iconStyle} transition-all`}><FaClock /></span>

@@ -6,7 +6,7 @@ export function CreateTaskWindow({ isOpen, setIsOpen }) {
     const newDate = new Date()
         , newMonth = newDate.getMonth()
 
-    const { countMonthDays, handleDuoClick, stateDuoArr } = useContext(CreateTaskContext)
+    const { countMonthDays, handleDuoClick, stateDuoArr, handleCreateTask, timeDuo } = useContext(CreateTaskContext)
 
     const [indexDuoActive, setIndexDuoActive] = useState(null)
 
@@ -47,9 +47,23 @@ export function CreateTaskWindow({ isOpen, setIsOpen }) {
         }
     }
 
-    const handleCloseCreateTaskWindow = () => {
-        setIsOpen(false)
-        console.log("hello world!");
+    // const handleCloseCreateTaskWindow = () => {
+    //     setIsOpen(false)
+    //     console.log("hello world!");
+    // }
+
+    const inputTitleRef = useRef(null)
+        , inputAboutRef = useRef(null)
+
+    const handleClickCreateTask = () => {
+        const inputTitleValue = inputTitleRef.current.value
+            , inputAboutValue = inputAboutRef.current.value
+        if (inputTitleValue && inputAboutValue && timeDuo) {
+            handleCreateTask(inputTitleValue, inputAboutValue, timeDuo)
+            setIsOpen(false)
+        } else {
+            alert('Enter text on all textarea!')
+        }
     }
 
     return (
@@ -59,10 +73,10 @@ export function CreateTaskWindow({ isOpen, setIsOpen }) {
                 <div className="text-4xl text-neutral-800 font-semibold">Hey, Create new task</div>
                 <div className="w-full h-fit flex flex-col gap-2">
                     <label htmlFor="taskTitle" className="text-lg text-neutral-800 font-medium">Task Title:</label>
-                    <input id="taskTitle" type="text" className="w-full h-15 rounded-4xl border-2 border-[var(--task_red-dark)] focus:outline-0 px-7 text-neutral-800 text-base" placeholder="Medium" maxLength={20} />
+                    <input ref={inputTitleRef} id="taskTitle" type="text" className="w-full h-15 rounded-4xl border-2 border-[var(--task_red-dark)] focus:outline-0 px-7 text-neutral-800 text-base" placeholder="Medium" maxLength={20} />
 
                     <label htmlFor="taskDetails" className="text-lg mt-3 text-neutral-800 font-medium">Task Details:</label>
-                    <textarea id="taskDetails" type="text" className="w-full h-30 rounded-3xl border-2 border-[var(--task_red-dark)] focus:outline-0 px-7 py-3 text-neutral-800 text-base" placeholder="Medium" maxLength={150} />
+                    <textarea ref={inputAboutRef} id="taskDetails" type="text" className="w-full h-30 rounded-3xl border-2 border-[var(--task_red-dark)] focus:outline-0 px-7 py-3 text-neutral-800 text-base" placeholder="Medium" maxLength={150} />
 
                     <label htmlFor="taskDate" className="text-lg mt-3 text-neutral-800 font-medium">Duo Date</label>
                     <div id="taskDate" className="w-full h-20">
@@ -71,7 +85,7 @@ export function CreateTaskWindow({ isOpen, setIsOpen }) {
                                 {monthArr.length > 0 ? (
                                     monthArr.map((item, index) => (
                                         <button
-                                            onClick={() => handleDuoClick(index)}
+                                            onClick={() => handleDuoClick(index, item)}
                                             key={index}
                                             className={`w-20 h-10 flex items-center justify-center text-sm transition-all rounded-4xl outline-2 outline-offset-2 cursor-pointer ${stateDuoArr[index] ? 'bg-[var(--task_red-dark)] text-neutral-100 outline-neutral-100 hover:bg-[var(--task_red)]' : 'bg-neutral-500 text-neutral-900 outline-transparent hover:text-neutral-100 hover:bg-neutral-400 active:bg-neutral-700 '} ${indexDuoActive !== index && indexDuoActive !== null ? 'pointer-events-none' : 'pointer-events-auto'}`}
                                         >
@@ -86,7 +100,7 @@ export function CreateTaskWindow({ isOpen, setIsOpen }) {
                         </div>
                     </div>
 
-                    <button className="w-full h-13 bg-neutral-900 rounded-3xl text-base font-medium hover:bg-neutral-800 transition-all cursor-pointer active:bg-neutral-950" onClick={() => { handleCloseCreateTaskWindow() }}>Create Task</button>
+                    <button className="w-full h-13 bg-neutral-900 rounded-3xl text-base font-medium hover:bg-neutral-800 transition-all cursor-pointer active:bg-neutral-950" onClick={() => { handleClickCreateTask() }}>Create Task</button>
                 </div>
             </div>
         </div >
