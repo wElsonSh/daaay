@@ -1,12 +1,12 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { IoClose } from "react-icons/io5";
-import { CreateTaskContext } from "../../contexts/ui/CreateTaskContext";
+import { TaskContext } from "../../contexts/ui/TaskContext";
 
 export function CreateTaskWindow({ isOpen, setIsOpen }) {
     const newDate = new Date()
         , newMonth = newDate.getMonth()
 
-    const { countMonthDays, handleDuoClick, stateDuoArr, handleCreateTask, timeDuo } = useContext(CreateTaskContext)
+    const { countMonthDays, handleDuoClick, stateDuoArr, handleCreateTask, timeDuo } = useContext(TaskContext)
 
     const [indexDuoActive, setIndexDuoActive] = useState(null)
 
@@ -61,6 +61,8 @@ export function CreateTaskWindow({ isOpen, setIsOpen }) {
         if (inputTitleValue && inputAboutValue && timeDuo) {
             handleCreateTask(inputTitleValue, inputAboutValue, timeDuo)
             setIsOpen(false)
+            inputTitleRef.current.value = ''
+            inputAboutRef.current.value = ''
         } else {
             alert('Enter text on all textarea!')
         }

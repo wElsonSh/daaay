@@ -1,3 +1,3 @@
 export { SettingsBtn } from './ui/SettingsBtn.jsx';
-export { Teg } from './ui/Teg.jsx';
+export { TaskFuncBtn } from './ui/TaskFuncBtn.jsx';
 

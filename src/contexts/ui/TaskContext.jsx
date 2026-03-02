@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 
-export const CreateTaskContext = createContext()
+export const TaskContext = createContext()
 
 export function CreateTaskContextProvider({ children }) {
 
@@ -18,26 +18,6 @@ export function CreateTaskContextProvider({ children }) {
         , [taskName, setTaskName] = useState(null)
         , [activeTaskIndex, setActiveTaskIndex] = useState(null)
 
-    const handleClickTask = (title) => {
-
-        setTaskName(title)
-
-        const taskArrLength = tasksArr.length
-            , newTaskStateArr = Array(taskArrLength).fill(false)
-        tasksArr.forEach((element, index) => {
-            if (element[0] == title) {
-                if (tasksStatesArr[index] !== true) {
-                    newTaskStateArr[index] = true
-                    setTasksStatesArr(newTaskStateArr)
-                    setActiveTaskIndex(index)
-                } else {
-                    newTaskStateArr[index] = false
-                    setActiveTaskIndex(null)
-                    setTasksStatesArr(newTaskStateArr)
-                }
-            }
-        })
-    }
 
     const newDate = new Date()
         , newYear = newDate.getFullYear()
@@ -75,11 +55,48 @@ export function CreateTaskContextProvider({ children }) {
 
         const examination = tasksArr.some(el => JSON.stringify(el[0]) === JSON.stringify(title))
         if (!examination) {
-            const newElem = [title, about, time]
+            const newDate = new Date()
+                , day = newDate.getDate()
+                , month = newDate.getMonth()
+            const newElem = [title, about, time, day, month]
             setTasksArr(prev => [...prev, newElem])
+
+            const newArray = [];
+            for (let i = 0; i < countMonthDays; i++) {
+                newArray.push(false);
+            }
+            setStateDuoArr(newArray);
         } else {
-            alert('arr have this task')
+            alert('Задача с таким именем уже есть!')
         }
+    }
+
+    const handleClickTask = (title) => {
+
+        setTaskName(title)
+
+        const taskArrLength = tasksArr.length
+            , newTaskStateArr = Array(taskArrLength).fill(false)
+        tasksArr.forEach((element, index) => {
+            if (element[0] == title) {
+                if (tasksStatesArr[index] !== true) {
+                    newTaskStateArr[index] = true
+                    setTasksStatesArr(newTaskStateArr)
+                    setActiveTaskIndex(index)
+                } else {
+                    newTaskStateArr[index] = false
+                    setActiveTaskIndex(null)
+                    setTasksStatesArr(newTaskStateArr)
+                }
+            }
+        })
+    }
+
+    const handleDeleteTask = (title) => {
+        setTasksArr(prev => {
+            const newTasksArr = prev.filter(item => item[0] != title)
+            return newTasksArr
+        })
     }
 
     const value = {
@@ -93,11 +110,12 @@ export function CreateTaskContextProvider({ children }) {
         activeTaskIndex,
         handleCreateTask,
         timeDuo,
+        handleDeleteTask,
     }
 
     return (
-        <CreateTaskContext.Provider value={value}>
+        <TaskContext.Provider value={value}>
             {children}
-        </CreateTaskContext.Provider>
+        </TaskContext.Provider>
     );
 }
