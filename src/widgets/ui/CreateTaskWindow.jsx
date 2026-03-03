@@ -47,11 +47,6 @@ export function CreateTaskWindow({ isOpen, setIsOpen }) {
         }
     }
 
-    // const handleCloseCreateTaskWindow = () => {
-    //     setIsOpen(false)
-    //     console.log("hello world!");
-    // }
-
     const inputTitleRef = useRef(null)
         , inputAboutRef = useRef(null)
 

@@ -58,7 +58,7 @@ export function CreateTaskContextProvider({ children }) {
             const newDate = new Date()
                 , day = newDate.getDate()
                 , month = newDate.getMonth()
-            const newElem = [title, about, time, day, month]
+            const newElem = [title, about, time, day, month, false]
             setTasksArr(prev => [...prev, newElem])
 
             const newArray = [];
@@ -99,6 +99,30 @@ export function CreateTaskContextProvider({ children }) {
         })
     }
 
+    const [editingTaskIndex, setEditingTaskIndex] = useState(null)
+
+    const handleCompleteTask = (title) => {
+        tasksArr.forEach((item, index) => {
+            if (item[0] == title) {
+                setEditingTaskIndex(index)
+            }
+        })
+    }
+    useEffect(() => {
+        if (editingTaskIndex == null) {
+            return
+        } else {
+            setTasksArr(prev => {
+                const newTasksArr = [...prev]
+                newTasksArr[editingTaskIndex] = [...newTasksArr[editingTaskIndex]]
+                newTasksArr[editingTaskIndex][5] = true
+                setEditingTaskIndex(null)
+                return newTasksArr
+            })
+        }
+    }, [editingTaskIndex])
+
+
     const value = {
         countMonthDays,
         handleDuoClick,
@@ -111,6 +135,7 @@ export function CreateTaskContextProvider({ children }) {
         handleCreateTask,
         timeDuo,
         handleDeleteTask,
+        handleCompleteTask,
     }
 
     return (

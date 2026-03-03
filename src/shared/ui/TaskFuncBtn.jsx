@@ -1,10 +1,15 @@
+import { useContext } from "react";
+import { TaskContext } from "../../contexts/ui/TaskContext";
+export function TaskFuncBtn({ isEditBtn, isOpen, icon }) {
 
-export function TaskFuncBtn({ isOpen, icon }) {
+    const { handleChangeTaskEditorState } = useContext(TaskContext)
 
     const btnStyle = isOpen ? ' text-neutral-900 pointer-events-none' : 'bg-neutral-600 text-neutral-50  hover:bg-neutral-800 hover:outline-neutral-900'
 
     return (
-        <button className={`w-10 h-10 bg-neutral-600 rounded-full cursor-pointer transition-all flex items-center justify-center text-neutral-50 outline-2 outline-transparent outline-offset-1 hover:outline-neutral-600 ${btnStyle}`}>
+        <button onClick={() => {
+            isEditBtn ? handleChangeTaskEditorState() : null
+        }} className={`w-9 h-9 bg-neutral-600 rounded-full cursor-pointer transition-all flex items-center justify-center text-neutral-50  ${btnStyle}`}>
             {icon}
         </button>
     );
