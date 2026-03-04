@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { FaCheck, FaPencilAlt } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 import { FaCalendar, FaClock } from "react-icons/fa6";
 import { IoIosMore } from "react-icons/io";
 import { IoClose, IoShareSocialSharp } from "react-icons/io5";
@@ -57,7 +57,7 @@ export function Task({ title, about, isOpen, time, day, month, complete }) {
 
 
             </div>
-            <div className={`mt-2 w-full text-base text-neutral-500 flex items-center  transition-all ${hiddenStyle}`}>
+            <div className={`mt-2 w-full text-base text-neutral-500 flex items-center  transition-all ${hiddenStyle} break-all`}>
                 {about}
             </div>
             <div className="w-11/12 h-20 flex items-center mx-auto">
@@ -80,7 +80,6 @@ export function Task({ title, about, isOpen, time, day, month, complete }) {
                             <IoClose className={`w-7 h-7 transition-all absolute ${taskMenuBtnCloseIconStyle}`} />
                             <FaCheck className={`w-4 h-4 transition-all absolute ${isCompleteCheckIconStyle}`} />
                         </button>
-                        <TaskFuncBtn isEditBtn={true} isOpen={isOpen} icon={<FaPencilAlt />} />
                         <TaskFuncBtn isEditBtn={false} isOpen={isOpen} icon={<IoShareSocialSharp />} />
                         <button onClick={() => { handleClickCompleteTask() }} className="w-9 h-9 rounded-full cursor-pointer transition-all opacity-70 flex items-center justify-center text-neutral-100 hover:opacity-100 bg-green-600">
                             <FaCheck className="w-4 h-4" />
